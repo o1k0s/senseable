@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="it">
+    <head>
+        <!-- Un po' di metadati per il browser -->
+        <meta charset="UTF-8" />
+        <title>SENSEABLE Data Meditation — messaggi nella bottiglia</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <!-- Questo è il CSS che definisce l'aspetto della pagina -->
+        <style>
+            /* usa l'intera viewport, font Lucida, corpo 32pt */
+            html, body {
+                background-color: yellow;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                font-size: 48pt;
+            }
+            /* Un container per l'intera viewport */
+            .container {
+                display: flex;
+                flex-direction: column;
+                height: 100vh; /* 100% dell'altezza della viewport */
+            }
+
+            /* Logo centrato al centro della pagina sopra */
+            .logo {
+                max-width: 50vw; /* 50% della larghezza della viewport */
+                display: block;
+                margin: 0 auto; /* centra orizzontale */
+                padding: 20px 0; /* Un po' di spazio intorno al logo */
+            }
+            /* Flexbox centra il paragrafo nel resto della pagina */
+            .content {
+                display: flex;
+                flex-grow: 1; /* Il contenuto usa il resto della pagina */
+                justify-content: center; /* Centra orizzontalmente */
+                align-items: center; /* Centra verticalmente */
+                text-align: center; /* Centra il testo nel paragrafo */
+            }
+        </style>
+        <script>
+            // I dati da visualizzare (e il codice che li cambia)
+            // sono i "messaggi nella bottiglia" della data meditation
+            let data = [
+                `Presto, troppo presto... `,
+                `emozione peculiare`,
+                `Sono curiosa di scoprire come funziona`,
+                `cammina insieme a noi ma non è uno di noi`,
+                `Lavori in corso. Dentro e fuori. Senso-abilità massima!`,
+                `Spero tu ti stia trovando bene ora, buona giornata :)`,
+                `sarà interessante sapere chi sei`,
+                `Don't worry`,
+                `ho davvero bisogno di un caffè`,
+                `in omnia paratus `,
+                `Sarebbe bello avere la forza di volontà di svegliarsi all'alba tutti i giorni e star 10 minuti all'aperto, fuori casa per ascoltare il silenzio`,
+                `Trova la chiarezza nel caos e lascia che la consapevolezza guidi il tuo cammino`,
+                `Ciaoo(????) Da problemi sto avendo solo problemi :((`,
+                `buona fortuna nel tuo viaggio…. `,
+                `:(`,
+                `Ho ulteriore conferma che la razionalità non è necessariamente l'antitesi dell'emotività, ma un modo per gestirla e canalizzarla. `,
+                `viaggio verso reggio`,
+                `ho bisogno di un altro caffè`,
+                `lo Stretto arriva dentro casa`,
+                `help me`,
+                `Casa, dolce casa?`,
+                `la grande palla infuocata oggi è particolarmente potente`,
+                `vivere la vita - vivere felice `,
+                `Come Vasco odio questo lunedi :-)`,
+                `Vorrei una vita vista mare :)`,
+                `Avere la responsabilità dei miei dati...`,
+                `il terrazzo è casa`,
+                `uffi`,
+                `che malaise i supermercati`,
+                `Alcune cose sembrano impossibili, ma non lo sono, tu che ne pensi?`,
+                `Non so come fanno molte persone a non sopportare i musical, sono stupendi!`,
+                `cosa definisce un rito?`,
+                `Questo è il momento in cui finalmente ci siamo incontrate `,
+                `Dopo 4 anni, ho incontrato una persona... ci conoscevamo solo online. Che strano, ma anche "normalissimo"`,
+                `Bisogna ricordarsi di fare una pausa`,
+                `Guardo le erbe spontanee nate tra cemento e asfalto. A loro basta così poco`,
+                `la gatta dice: non è ancora abbastanza limpida, umano continua`,
+                `Ricordarsi l'acqua...`,
+                `la prolunga è un oggetto fondamentale nella vita dell’abarc`,
+                `Ho appena fatto 207 scalini per riuscire a vedere Valencia dall'alto, sono molto stanca ma ne è valsa la pena.`,
+                `Se mi rilasso collasso`,
+                `Se qualcosa può andar male, lo farà`,
+                `Ritagliate del tempo di qualità per voi e la vostra famiglia `,
+                `Mi ritrovo spesso a pensare che ci sono troppe cose, troppi oggetti, troppi input. Troppo lontani dall'essenziale`,
+                `L’assenza di calcolo e di misura che appartiene solo alle cose nate libere...`,
+                `Musica e buona compagnia. Un brindisi a noi!`,
+                `Osserva quello che ti circonda e meravigliati ogni giorno`,
+                `spazio ai sensi`,
+                `caro Altro che ne pensi dell'attesa? per me è un sentimento conflittuale...`,
+                `I don't care if you don't care`,
+                `Relax! `,
+                `oggi è stata una giornata stressante ma la crema caffè mi ha salvato`,
+                `A volte le parole non bastano `,
+                `Ma che musica maestro :)`,
+                `È divertente!`,
+                `Sono davvero entusiasta di partecipare a questo progetto, credo sia un ottimo modo per “ricominciare” dopo un’estate `,
+                `Mi sento assonnata anche stasera, mi sa che dovevo prendere altri caffè stamattina `,
+                `Non sei solo`,
+                `Buonanotte!`,
+                `Uuuuuuh… `,
+                `Ci provo, Altro. Tu? Dormi?`,
+                `Il mare riporta sempre ció che è destinato a tornare `,
+                `Buongiorno…`,
+                `Buongiorno `,
+                `Niente, non si può dormire`,
+                `Si comincia! Fra poco ti incontrero! `,
+                `Buongiorno Altro, mi aspetta una giornata molto lunga`,
+                `Tra un po' i rami dell'albero mi entrano in casa. Bello!`,
+                `Avrei voluto scrivere di più, ma vengo da una giornata di ieri (e conseguente nottata) estenuante causa concerto ed enormi difficoltà tecniche a causa dell'amatorialità dei musicisti con cui ho condiviso il palco. `,
+                `Sono un po’ triste che sia finita l’estate… ma mi manca tanto il clima accademico 🥹`,
+                `Qualunque sia la tua giornata, ricorda di trovare il bello anche nei piccoli dettagli`,
+                `oggi è un altro giorno, ricominciamo`,
+                `ciao mio altro, ho scoperto che ti piacciono i musical`,
+                `sono un po' assonnata`,
+                `Oggi se riscontro altri problemi con il libro che sto leggendo mi arrabbio (BASTA FINALI APERTI) ps vado a prendere un caffè`,
+                `Buongiornoo, mi è piaciuto molto ascoltare lo scorrere delle sensazioni e della vita di due persone. Buona giornata anche oggi!`,
+                `se il mondo fosse cieco riusciresti a farti notare?`,
+                `che sport fai? leggerò la risposta dopodomani vb vb. `,
+                `Qualcuno cantava "maledetta noia..."`,
+                `fiducia negli Altro, caro Altro`,
+                `Come stai?`,
+                `il mio amico Mario dice "gli Oasis sono tornati insieme"`,
+                `Relazionarsi significa esserci senza invadere lo spazio altrui. `,
+                `Siamo come il sognatore che sogna e poi vive dentro il suo sogno. Ma chi è il sognatore?`,
+                `Spero tu abbia fatto una buona colazione. Tra la natura, il gatto e il cibo è super rilassante `,
+                `l'esercizio è: sforzarsi a pensare per immagini`,
+                `Mi sei mancato/a. Spero di trovarti nella datameditazione di domani! `,
+                `Il caldo non aiuta, specie se si subiscono sbalzi di temperatura tra l'afoso esterno e il "polare" interno. Ciò inficia la conduzione delle giornate, diminuendo la mia voglia di prepararmi per gli esami e di lavorare alla tesi.`,
+                `L'orto mi guarda e mi chiede: dove sei?`,
+                `dovrebbero alzare la temperatura al mcdrive, si congela 🥶`,
+                `Troppo caldo e non voglio accendere il condizionatore`,
+                `Andare o no al mare oggi? Questo è il dilemma.`,
+                `Per la serie "ci sono troppi oggetti". Aiuto!`,
+                `Questo fatto che si mangia più volte al giorno è assai noioso`,
+                `Non so come faccio, ma quasi sempre ce la faccio`,
+                `troppo fredda... perchè è così fredda? perchè ci raffreddiamo noi e sciogliamo il pianeta? caro Altro, ci pensi a queste cose? che provi?`,
+                `Presente e interdipendente! `,
+                `vivo il momento`,
+                `Osserva ciò che hai intorno`,
+                `Scommettiamo senza paura`,
+                `seguo le tracce con lei`,
+                `Riposare è un diritto`,
+                `Un buon libro è sempre una piacevole compagnia. `,
+                `Quando studio mi piace che ciò che mi circonda sia calmo e silenzioso, come in questo momento, sembra quasi voglia venire giù la pioggia. `,
+                `pioggia, che tu sia la benvenuta!`,
+                `Mi piace imparare! a te, Altro?`,
+                `Vedo cuori ovunque `,
+                `Sfumature di blu`,
+                `Un olmo ha deciso di nascere nell'aiuola del condominio ma non ha spazio a sufficienza. Se me lo diceva prima...`,
+                `Cielo grigio, cuore leggero`,
+                `Questo libro mi porterà dallo psichiatra me lo sentivo `,
+                `-`,
+                `vorrei una pizza anche io però con la nduja`,
+                `È tutto molto bello, nella casa di lato ci sono 5 cani e sono bellissimii`,
+                `Ce ne è sempre una nuova… `,
+                `Got bellissimo lo sto riguardando wow`,
+                `Di fronte al mare la felicità è un'idea semplice`,
+                `Ritagliare dei momenti per sé è importante `,
+                `non si fa!`,
+                `Menomale che non penso a voce alta`,
+                `O sopporto il caldo o le persone. Non posso fare entrambe le cose.`,
+                `È sempre il momento per un buon gelato :)`,
+                `Vorrei tanto chiudere gli appunti e leggere MA NON POSSO🥲`,
+                `Ho cercato risposte tra le stelle`,
+                `Bisogna stare attenti alle chiavi vanno custodite`,
+                `Ciao altro, è stata una giornata faticosa `,
+                `È misteriosamente fresco, bisogna approfittarne`,
+                `Adoro che ogni volta io e le mie amiche scegliamo libri orribili che ci mandano in blocco`,
+                `Quanto è bello guidare con la musica alta`,
+                `Buonanottee`,
+                `Li scirocco e impossibile. Si resiste solo sulla spiaggia`,
+                `Tu dormi, egli dorme … io forse …`,
+                `Fai quello che ti rende felice`,
+                `Le stelle sono stupende `,
+                `Nonostante il sonno arretrato, il senso di responsabilità si fa sentire, ed è bene avere uno schema orientativo delle attività di domani per essere (almeno psicologicamente) pronto per una relazione ottimale con i fruitori della mostra. Servono curiosità, passione e, perché no, anche il dono della sintesi.`,
+                `Buonanotte, caro Altro`,
+                `ti consiglio di ascoltare last day on earth di tai verdes`,
+                `Buongiorno! `,
+                `Agosto sta durando tipo 7 mesi con me che sono invecchiata di 7 anni`,
+                `Fermo restando non andrò da nessuna parte`,
+                `Buongiorno `,
+                `Buongiorno e buona giornata`,
+                `Sempre fresco!`,
+                `Sono sveglio da poco, già immerso nella delicata organizzazione di più impegni previsti per questa giornata. E' la prima volta che opero in veste di "guida" all'interno di una mostra d'arte: ciò mi rende teso, anche se in modo prevalentemente positivo. `,
+                `Funzionerà?!?`,
+                `sono le 9.25, ci "vediamo" tra poco`,
+                `nonostatnte tutto `,
+                `Ciao! Buona meditazione `,
+                `questa cosa che "dove sei?" sia poco specifico mi turba. `,
+                `ciao mio altro, inizia adesso un'altra giornata, ti scriverò spesso `,
+                `Buongiornoo mio altro, spero tu sia riuscito a organizzare i tuoi impegni senza troppi intoppi`,
+                `Come sport pratico il sollevamento responsabilità che vorrei non avere	`,
+            ]
+            // Seleziona un messaggio casuale dalla lista e mettilo al posto "giusto"
+            function nuovoTesto() {
+                console.log("Cambiando il testo...");
+                let messaggio = data[Math.floor(Math.random() * data.length)];
+                document.querySelector('.content').innerText = messaggio;
+            }
+            // Appena la pagina è pronta, cambia il testo ogni minuto
+            document.addEventListener("DOMContentLoaded", function() {
+                console.log("DOM is ready.");
+                nuovoTesto();
+                setInterval(nuovoTesto, 10000);
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <img src="logo.png" alt="logo per SENSEABLE" class="logo">
+            <div class="content">
+                <p>Ciao!</p>
+            </div>
+        </div>
+    </body>
+</html>
