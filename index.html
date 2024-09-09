@@ -202,11 +202,11 @@
                 let messaggio = data[Math.floor(Math.random() * data.length)];
                 document.querySelector('.content').innerText = messaggio;
             }
-            // Appena la pagina è pronta, cambia il testo ogni minuto
+            // Appena la pagina è pronta, cambia il testo ogni 30 secondi (30000ms)
             document.addEventListener("DOMContentLoaded", function() {
                 console.log("DOM is ready.");
                 nuovoTesto();
-                setInterval(nuovoTesto, 10000);
+                setInterval(nuovoTesto, 30000);
             });
         </script>
     </head>
